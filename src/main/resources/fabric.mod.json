@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "tuozhurpg",
+  "version": "${version}",
+  "name": "TuoZhuRPG",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/tuozhurpg/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.myudog.tuozhurpg.client.TuoZhuRpgDataGenerator"
+    ],
+    "client": [
+      "com.myudog.tuozhurpg.client.TuoZhuRpgClient"
+    ],
+    "main": [
+      "com.myudog.tuozhurpg.TuoZhuRpg"
+    ]
+  },
+  "mixins": [
+    "tuozhurpg.mixins.json",
+    {
+      "config": "tuozhurpg.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
