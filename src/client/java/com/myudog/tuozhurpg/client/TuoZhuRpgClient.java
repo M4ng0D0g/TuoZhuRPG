@@ -7,6 +7,6 @@ public class TuoZhuRpgClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        KeyBindingHandler.register();
+//        KeyBindingHandler.register();
     }
 }
