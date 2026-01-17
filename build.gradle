@@ -44,6 +44,8 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+//    maven { url "https://maven.architectury.dev/" }
+//    maven { url "https://maven.saps.dev/minecraft" }
 }
 
 dependencies {
@@ -58,6 +60,9 @@ dependencies {
     // === 加入這段：UI Lib 依賴 ===
     modImplementation "maven.modrinth:ui-lib:${ui_lib_version}"
     modImplementation "maven.modrinth:architectury-api:${architectury_api_vision}"
+
+//    modImplementation "maven.modrinth:ldlib:${ldlib_version}"
+//    modImplementation "dev.architectury:architectury-fabric:9.2.14"
 }
 
 processResources {

@@ -1,12 +1,14 @@
 package com.myudog.tuozhurpg.client.handler;
 
 import com.myudog.tuozhurpg.TuoZhuRpg;
-import com.myudog.tuozhurpg.client.gui.TestScreen;
+import com.myudog.tuozhurpg.client.gui.screens.InventoryScreen;
+import com.myudog.tuozhurpg.client.gui.screens.test.TestScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
@@ -39,7 +41,7 @@ public class KeyBindingHandler {
 
     private static void handleGlobalOverride(MinecraftClient client) {
         while (testScreenKey.wasPressed()) {
-            MinecraftClient.getInstance().setScreen(new TestScreen());
+            MinecraftClient.getInstance().setScreen(new InventoryScreen());
         }
     }
 
