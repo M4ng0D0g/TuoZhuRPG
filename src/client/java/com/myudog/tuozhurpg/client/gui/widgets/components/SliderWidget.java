@@ -33,7 +33,7 @@ public class SliderWidget extends BaseWidget {
     }
 
     private void updateMessage() {
-        int percent = (int) value * 100;
+        int percent = (int) (value * 100);
         this.setMessage(Text.literal(percent + "%"));
     }
 

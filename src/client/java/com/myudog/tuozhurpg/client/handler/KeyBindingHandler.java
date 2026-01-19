@@ -41,7 +41,7 @@ public class KeyBindingHandler {
 
     private static void handleGlobalOverride(MinecraftClient client) {
         while (testScreenKey.wasPressed()) {
-            MinecraftClient.getInstance().setScreen(new InventoryScreen());
+            MinecraftClient.getInstance().setScreen(new TestScreen());
         }
     }
 
