@@ -6,7 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.text.Text;
 
-public class StatBarWidget extends BaseWidget {
+public class StatBarWidget extends ControlWidget {
 
     private float progress; // 0.0 ~ 1.0
     private int barColor;

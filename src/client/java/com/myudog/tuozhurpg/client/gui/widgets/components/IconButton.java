@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 
 目前你只會畫整張圖，但技能圖示通常是塞在同一張大圖 (Atlas) 裡的。你需要學會「只畫圖片的某一個小方塊」。
 * */
-public class IconButton extends BaseWidget {
+public class IconButton extends ControlWidget {
 
     private final Identifier texture;
     private final int u, v;

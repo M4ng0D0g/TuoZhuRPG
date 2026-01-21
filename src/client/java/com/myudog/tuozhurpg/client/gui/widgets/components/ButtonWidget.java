@@ -10,7 +10,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
 // 定義一個功能介面，用來傳遞 "按下去要執行的程式碼"
-public class ButtonWidget extends BaseWidget {
+public class ButtonWidget extends ControlWidget {
 
     // 儲存按下去後的動作 (Callback)
     private final Runnable onPress;

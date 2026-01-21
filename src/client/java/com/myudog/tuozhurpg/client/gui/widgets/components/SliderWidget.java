@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 目前你只會 onClick (點一下)。滑桿需要處理 onDrag (按住不放並移動)。
 * */
-public class SliderWidget extends BaseWidget {
+public class SliderWidget extends ControlWidget {
 
     private double value;
     private final Consumer<Double> onValueChange;
