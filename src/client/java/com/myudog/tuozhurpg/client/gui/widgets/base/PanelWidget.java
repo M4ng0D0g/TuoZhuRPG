@@ -1,6 +1,5 @@
-package com.myudog.tuozhurpg.client.gui.widgets.panels.base;
+package com.myudog.tuozhurpg.client.gui.widgets.base;
 
-import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 
@@ -9,7 +8,6 @@ import java.util.List;
 
 public abstract class PanelWidget extends BaseWidget {
 
-    // 只有 Panel 擁有子元件列表
     protected List<BaseWidget> children = new ArrayList<>();
 
     public PanelWidget(int fixedW, int fixedH) {
@@ -19,25 +17,18 @@ public abstract class PanelWidget extends BaseWidget {
     // --- 子元件管理 (Tree Management) ---
 
     public void addChild(BaseWidget child) {
-        if (child == this) return; // 防止自我循環
-
-        // 防止重複添加
+        if (child == this) return;
         if (this.children.contains(child)) return;
 
-        // 如果孩子已經有父母，先從舊父母那邊移除
         if (child.getParent() instanceof PanelWidget oldParent) {
             oldParent.removeChild(child);
         }
-
         this.children.add(child);
         child.setParent(this);
 
-        // 【追趕機制】如果 Panel 已經初始化過，新加入的孩子也要立刻初始化
         if (this.isInitialized()) {
             child.init();
         }
-
-        // 標記佈局髒污，觸發重算
         this.markDirty();
     }
 
@@ -64,9 +55,7 @@ public abstract class PanelWidget extends BaseWidget {
 
     @Override
     public void init() {
-        super.init(); // 初始化自己
-
-        // 遞迴初始化孩子
+        super.init();
         for (BaseWidget child : children) {
             child.init();
         }
@@ -80,17 +69,19 @@ public abstract class PanelWidget extends BaseWidget {
         drawBackground(context);
         drawBorder(context);
 
-        // 2. 啟用剪裁 (Scissor Test)
-        // 這會確保孩子不會畫出 Panel 的範圍 (例如長列表捲動時)
-        enableScissor(context);
+        boolean scissorEnabled = enableScissor(context);
 
-        // 3. 遞迴畫孩子
-        for (BaseWidget child : children) {
-            child.render(context, mouseX, mouseY, delta);
+        try {
+            // 2. 渲染孩子 (不管這裡發生什麼事，甚至報錯)
+            for (BaseWidget child : children) {
+                child.render(context, mouseX, mouseY, delta);
+            }
+        } finally {
+            // 3. 【關鍵】確保一定要關閉 (只有在成功開啟的前提下)
+            if (scissorEnabled) {
+                disableScissor(context);
+            }
         }
-
-        // 4. 關閉剪裁
-        disableScissor(context);
     }
 
     // --- 剪裁輔助方法 (Scissor Helper) ---
@@ -99,7 +90,7 @@ public abstract class PanelWidget extends BaseWidget {
      * 開啟剪裁區域。
      * 注意：Minecraft 的 Scissor 需要計算物理視窗座標，受 GUI Scale 影響。
      */
-    protected void enableScissor(DrawContext context) {
+    protected boolean enableScissor(DrawContext context) {
         double scale = MinecraftClient.getInstance().getWindow().getScaleFactor();
 
         // 計算剪裁區域 (基於 Panel 自己的絕對位置與大小)
@@ -109,9 +100,9 @@ public abstract class PanelWidget extends BaseWidget {
         int scissorW = getW() - getPaddingLeft() - getPaddingRight();
         int scissorH = getH() - getPaddingTop() - getPaddingBottom();
 
-        // 呼叫 DrawContext 的剪裁方法 (1.20+ 內建方法)
-        // 如果您的版本沒有這個方法，需要使用 RenderSystem.enableScissor 並手動轉換座標
+        if (scissorW <= 0 || scissorH <= 0) return false;
         context.enableScissor(scissorX, scissorY, scissorX + scissorW, scissorY + scissorH);
+        return true;
     }
 
     protected void disableScissor(DrawContext context) {

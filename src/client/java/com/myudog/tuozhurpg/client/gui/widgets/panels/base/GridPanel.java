@@ -1,13 +1,18 @@
 package com.myudog.tuozhurpg.client.gui.widgets.panels.base;
 
 import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
+import com.myudog.tuozhurpg.client.gui.widgets.base.PanelWidget;
 
 public class GridPanel extends PanelWidget {
 
     private int columns = 1;
     private int spacing = 0;
 
-    public GridPanel(int columns, int spacing) {
+    public GridPanel(int fixedW, int fixedH) {
+        super(fixedW, fixedH);
+    }
+    public GridPanel(int fixedW, int fixedH, int columns, int spacing) {
+        super(fixedW, fixedH);
         this.columns = columns;
         this.spacing= spacing;
     }

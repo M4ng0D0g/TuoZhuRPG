@@ -1,6 +1,5 @@
 package com.myudog.tuozhurpg.client.gui.widgets.base;
 
-import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
@@ -17,36 +16,18 @@ import com.myudog.tuozhurpg.client.gui.interfaces.ITheme;
 
 public abstract class BaseWidget implements Drawable, Element, Selectable {
 
-    // --- 1. 配置層 (Configuration) - 使用者設定的 "願望" ---
-    // 這些變數決定了元件 "想要" 變成什麼樣子
     protected int fixedX = 0, fixedY = 0; // 僅在 Anchor 計算或 CanvasPanel 中有用
     protected int fixedW, fixedH;
-    protected SizeMode widthMode = SizeMode.FIXED;
-    protected SizeMode heightMode = SizeMode.FIXED;
 
-    protected Anchor anchorFrom = Anchor.TOP_LEFT;
-    protected Anchor anchorTo = Anchor.FREE; // 或 PARENT_TOP_LEFT
-    protected int offsetX = 0;
-    protected int offsetY = 0;
-
-    // --- 2. 結果層 (Result State) - 系統計算後的 "現實" ---
-    // 這些變數是 layout() 算出來的最終結果，渲染時使用
-    // 設為 protected，禁止外部直接修改，確保數據流向單一
-    protected int x, y;
-    protected int w, h;
-    protected int measuredW, measuredH; // 測量階段的暫存值
+    protected int x, y, w, h;
 
     protected boolean layoutDirty = true;
     protected boolean initialized = false;
-
-    // --- 建構子 ---
 
     public BaseWidget(int w, int h) {
         this.fixedW = w;
         this.fixedH = h;
     }
-
-    // --- 生命週期: Init ---
 
     public boolean isInitialized() {
         return initialized;
@@ -58,66 +39,49 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
         this.onInit();
     }
 
-    /** 子類別可覆寫此方法進行一次性邏輯綁定 */
     protected void onInit() {}
 
-    // --- 核心流程 A: Measure (測量) ---
-    // 由下而上 (Bottom-Up)：父元件詢問子元件大小
+    // ----------------------------------------------------------------------------------------------------
+
+    protected SizeMode widthMode = SizeMode.FIXED;
+    protected SizeMode heightMode = SizeMode.FIXED;
+    protected int measuredW, measuredH; // 測量階段的暫存值
+
+    public void setSizeMode(SizeMode widthMode, SizeMode heightMode) {
+        this.widthMode = widthMode;
+        this.heightMode = heightMode;
+    }
 
     public void measure(int parentAvailW, int parentAvailH) {
-        // 1. 寬度測量
+        int contentW = (this.widthMode == SizeMode.FIXED)
+                ? Math.max(0, this.fixedW - paddingLeft - paddingRight)
+                : Math.max(0, parentAvailW - marginLeft - marginRight);
+
+        int contentH = (this.heightMode == SizeMode.FIXED)
+                ? Math.max(0, this.fixedH - paddingTop - paddingBottom)
+                : Math.max(0, parentAvailH - marginTop - marginBottom);
+
+        int[] size = onMeasure(contentW, contentH);
+
         if (this.widthMode == SizeMode.FIXED) {
             this.measuredW = this.fixedW;
         } else if (this.widthMode == SizeMode.MATCH_PARENT) {
-            // 注意：這裡先暫時填滿，實際大小會在 layout 階段被父元件修正
             this.measuredW = Math.max(0, parentAvailW - marginLeft - marginRight);
         } else {
-            // WRAP_CONTENT: 詢問具體實作
-            // 傳入的 availW 已經扣除了 Margin，讓子類別知道最大邊界
-            int contentAvailW = Math.max(0, parentAvailW - marginLeft - marginRight);
-            int contentAvailH = Math.max(0, parentAvailH - marginTop - marginBottom);
-
-            int[] size = onMeasure(contentAvailW, contentAvailH);
             this.measuredW = size[0];
-            // 如果高度是 FIXED，即使 onMeasure 算出了高度，也強制覆寫 (視需求而定)
-            if (this.heightMode == SizeMode.FIXED) {
-                this.measuredH = this.fixedH;
-            } else {
-                this.measuredH = size[1];
-            }
         }
 
-        // 2. 高度測量 (邏輯同上，針對 FIXED 簡化處理)
         if (this.heightMode == SizeMode.FIXED) {
             this.measuredH = this.fixedH;
         } else if (this.heightMode == SizeMode.MATCH_PARENT) {
             this.measuredH = Math.max(0, parentAvailH - marginTop - marginBottom);
         } else if (this.widthMode != SizeMode.WRAP_CONTENT) {
-            // 如果寬度不是 Wrap (已經在上面算過了)，這裡針對高度 Wrap 再算一次
-            // (通常 onMeasure 會一次算好寬高，這裡只是防禦性編程)
-            int contentAvailW = Math.max(0, parentAvailW - marginLeft - marginRight);
-            int contentAvailH = Math.max(0, parentAvailH - marginTop - marginBottom);
-            int[] size = onMeasure(contentAvailW, contentAvailH);
             this.measuredH = size[1];
         }
     }
 
-    /**
-     * 子類別必須實作：根據內容計算大小
-     * @return int[]{width, height} 內容區想要的寬高 (含 Padding，不含 Margin)
-     */
     protected abstract int[] onMeasure(int availW, int availH);
 
-    // --- 核心流程 B: Layout (佈局) ---
-    // 由上而下 (Top-Down)：父元件指定子元件位置
-
-    /**
-     * 接收父元件的命令，設定最終位置與大小
-     * @param absoluteX 父元件決定的絕對 X
-     * @param absoluteY 父元件決定的絕對 Y
-     * @param actualW   父元件分配的最終寬度
-     * @param actualH   父元件分配的最終高度
-     */
     public void layout(int absoluteX, int absoluteY, int actualW, int actualH) {
         this.x = absoluteX;
         this.y = absoluteY;
@@ -130,7 +94,7 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
         // PanelWidget 繼承此方法後，必須 Override 並呼叫 super.layout(...) 然後處理 children
     }
 
-    // --- Getters & Setters (配置層) ---
+    // ----------------------------------------------------------------------------------------------------
 
     public int getX() { return x; } // 回傳最終結果
     public int getY() { return y; }
@@ -171,7 +135,12 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
         }
     }
 
-    // --- Anchors (定位) ---
+    // ----------------------------------------------------------------------------------------------------
+
+    protected Anchor anchorFrom = Anchor.TOP_LEFT;
+    protected Anchor anchorTo = Anchor.FREE; // 或 PARENT_TOP_LEFT
+    protected int offsetX = 0;
+    protected int offsetY = 0;
 
     public void setAnchor(Anchor from, Anchor to) {
         this.anchorFrom = from;
@@ -191,7 +160,7 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
     public int getOffsetY() { return offsetY; }
 
 
-    // --- 樣式與主題 ---
+    // ----------------------------------------------------------------------------------------------------
 
     protected int backgroundColor = 0x11111188;
     protected int borderStartColor = 0xFFFFFFDD;
@@ -214,7 +183,7 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
         this.borderEndColor = theme.getBorderEndColor();
     }
 
-    // --- Margin & Padding ---
+    // ----------------------------------------------------------------------------------------------------
 
     protected int paddingLeft, paddingRight, paddingTop, paddingBottom;
     protected int marginLeft, marginRight, marginTop, marginBottom;
@@ -251,7 +220,7 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
     public int getMarginVertical() { return marginTop + marginBottom; }
 
 
-    // --- 父子關係 ---
+    // ----------------------------------------------------------------------------------------------------
 
     protected PanelWidget parent;
 
@@ -265,7 +234,7 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
         this.parent = parent;
     }
 
-    // --- 渲染 ---
+    // ----------------------------------------------------------------------------------------------------
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -285,19 +254,18 @@ public abstract class BaseWidget implements Drawable, Element, Selectable {
     protected void drawBorder(DrawContext context) {
         if (borderSize <= 0) return;
 
-        // 上
         context.fill(x, y, x + w, y + borderSize, borderStartColor);
-        // 下
         context.fill(x, y + h - borderSize, x + w, y + h, borderEndColor);
-        // 左 (注意高度要扣掉上下，避免重疊繪製，雖然 fill 沒差)
         context.fillGradient(x, y, x + borderSize, y + h, borderStartColor, borderEndColor);
-        // 右
         context.fillGradient(x + w - borderSize, y, x + w, y + h, borderStartColor, borderEndColor);
     }
 
-    // --- Accessibility / Selection (Minecraft 介面必須實作) ---
-    // 這部分通常需要根據具體需求實作，這裡給出預設空實作
+    // ----------------------------------------------------------------------------------------------------
 
+    @Override
+    public boolean isMouseOver(double mouseX, double mouseY) {
+        return mouseX >= this.x && mouseX < this.x + this.w && mouseY >= this.y && mouseY < this.y + this.h;
+    }
     @Override
     public void setFocused(boolean focused) {}
     @Override

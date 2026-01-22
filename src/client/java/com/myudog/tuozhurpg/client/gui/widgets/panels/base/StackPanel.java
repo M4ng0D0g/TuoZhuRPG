@@ -1,6 +1,7 @@
 package com.myudog.tuozhurpg.client.gui.widgets.panels.base;
 
 import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
+import com.myudog.tuozhurpg.client.gui.widgets.base.PanelWidget;
 
 public class StackPanel extends PanelWidget {
 
