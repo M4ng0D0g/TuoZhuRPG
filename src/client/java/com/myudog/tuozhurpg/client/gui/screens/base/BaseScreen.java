@@ -1,7 +1,6 @@
 package com.myudog.tuozhurpg.client.gui.screens.base;
 
-import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
-import com.myudog.tuozhurpg.client.gui.widgets.panels.PanelWidget;
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -28,7 +27,7 @@ public abstract class BaseScreen extends Screen {
         this.height = height;
 
         if (rootPanel != null) {
-            rootPanel.measure();
+            rootPanel.onMeasure();
             rootPanel.layout(0, 0, this.width, this.height);
         }
     }
@@ -53,7 +52,7 @@ public abstract class BaseScreen extends Screen {
         if (this.rootPanel == null) return;
 
         if (this.isLayoutDirty) {
-            rootPanel.measure();
+            rootPanel.onMeasure();
             rootPanel.layout(0, 0, this.width, this.height);
             this.isLayoutDirty = false;
         }

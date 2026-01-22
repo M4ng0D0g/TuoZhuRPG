@@ -1,8 +1,6 @@
 package com.myudog.tuozhurpg.client.gui.widgets.components;
 
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
@@ -47,14 +45,14 @@ public class IconButton extends ControlWidget {
         this.drawBorder(context);
 
         int iconSize = 16;
-        int offset = (this.width - iconSize) / 2;
+        int offset = (this.w - iconSize) / 2;
 
         context.drawTexture(
                 RenderPipelines.GUI_TEXTURED,
                 this.texture,
                 getX() + offset, getY() + offset,
                 (float) this.u, (float) this.v,
-                this.width, this.height,
+                this.w, this.h,
                 iconSize, iconSize
         );
 

@@ -1,4 +1,8 @@
-package com.myudog.tuozhurpg.client.gui.widgets.base;
+package com.myudog.tuozhurpg.client.gui.enums;
+
+import com.myudog.tuozhurpg.client.gui.interfaces.ITheme;
+import com.myudog.tuozhurpg.client.gui.widgets.base.Color;
+import com.myudog.tuozhurpg.client.gui.widgets.base.Colors;
 
 public enum DebugTheme implements ITheme {
     DEBUG_1(Colors.WHITE),      // 白色

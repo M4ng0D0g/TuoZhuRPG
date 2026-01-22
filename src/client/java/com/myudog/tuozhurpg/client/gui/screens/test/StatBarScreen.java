@@ -4,7 +4,7 @@ import com.myudog.tuozhurpg.TuoZhuRpg;
 import com.myudog.tuozhurpg.client.gui.screens.base.BaseScreen;
 import com.myudog.tuozhurpg.client.gui.widgets.components.ButtonWidget;
 import com.myudog.tuozhurpg.client.gui.widgets.components.StatBarWidget;
-import com.myudog.tuozhurpg.client.gui.widgets.panels.PanelWidget;
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.text.Text;
 

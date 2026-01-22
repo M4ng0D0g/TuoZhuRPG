@@ -1,4 +1,4 @@
-package com.myudog.tuozhurpg.client.gui.widgets.base;
+package com.myudog.tuozhurpg.client.gui.interfaces;
 
 public interface ITheme   {
     int getBackgroundColor();

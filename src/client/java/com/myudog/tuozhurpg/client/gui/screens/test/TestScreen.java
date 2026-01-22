@@ -3,18 +3,12 @@ package com.myudog.tuozhurpg.client.gui.screens.test;
 
 import com.myudog.tuozhurpg.TuoZhuRpg;
 import com.myudog.tuozhurpg.client.gui.screens.base.BaseScreen;
-import com.myudog.tuozhurpg.client.gui.widgets.base.Anchor;
-import com.myudog.tuozhurpg.client.gui.widgets.base.DebugTheme;
-import com.myudog.tuozhurpg.client.gui.widgets.components.ButtonWidget;
 import com.myudog.tuozhurpg.client.gui.widgets.components.IconButton;
 import com.myudog.tuozhurpg.client.gui.widgets.components.SliderWidget;
-import com.myudog.tuozhurpg.client.gui.widgets.components.StatBarWidget;
 import com.myudog.tuozhurpg.client.gui.widgets.panels.DraggablePanel;
-import com.myudog.tuozhurpg.client.gui.widgets.panels.PanelWidget;
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import com.myudog.tuozhurpg.client.gui.widgets.panels.ScrollContainerWidget;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.text.Text;
 
 public class TestScreen extends BaseScreen {

@@ -1,4 +1,4 @@
-package com.myudog.tuozhurpg.client.gui.widgets.base;
+package com.myudog.tuozhurpg.client.gui.enums;
 
 public enum Anchor {
     TOP_LEFT,

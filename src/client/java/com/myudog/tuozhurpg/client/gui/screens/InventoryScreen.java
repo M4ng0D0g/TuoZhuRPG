@@ -1,10 +1,10 @@
 package com.myudog.tuozhurpg.client.gui.screens;
 
 import com.myudog.tuozhurpg.client.gui.screens.base.BaseScreen;
-import com.myudog.tuozhurpg.client.gui.widgets.base.Anchor;
-import com.myudog.tuozhurpg.client.gui.widgets.base.DebugTheme;
+import com.myudog.tuozhurpg.client.gui.enums.Anchor;
+import com.myudog.tuozhurpg.client.gui.enums.DebugTheme;
 import com.myudog.tuozhurpg.client.gui.widgets.panels.InventoryGridPanel;
-import com.myudog.tuozhurpg.client.gui.widgets.panels.PanelWidget;
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import com.myudog.tuozhurpg.client.gui.widgets.panels.PaperDollPanel;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;

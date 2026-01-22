@@ -1,6 +1,7 @@
 package com.myudog.tuozhurpg.client.gui.widgets.panels;
 
-import com.myudog.tuozhurpg.client.gui.widgets.base.Anchor;
+import com.myudog.tuozhurpg.client.gui.enums.Anchor;
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 
@@ -72,6 +73,6 @@ public class DraggablePanel extends PanelWidget {
         super.renderWidget(context, mouseX, mouseY, delta);
 
         // 畫標題列 (稍微亮一點的顏色)
-        context.fill(getX(), getY(), getX() + width, getY() + headerHeight, 0x40FFFFFF);
+        context.fill(getX(), getY(), getX() + w, getY() + headerHeight, 0x40FFFFFF);
     }
 }

@@ -1,5 +1,6 @@
 package com.myudog.tuozhurpg.client.gui.widgets.panels;
 
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import net.minecraft.client.gui.DrawContext;
 
 public class InventoryGridPanel extends PanelWidget {
@@ -20,8 +21,8 @@ public class InventoryGridPanel extends PanelWidget {
     public InventoryGridPanel setGridPadding(int padding) {
         this.gridPadding = padding;
         // 重新計算寬高
-        this.width = (columns * SLOT_SIZE) + (padding * 2);
-        this.height = (rows * SLOT_SIZE) + (padding * 2);
+        this.w = (columns * SLOT_SIZE) + (padding * 2);
+        this.h = (rows * SLOT_SIZE) + (padding * 2);
         return this;
     }
 

@@ -1,6 +1,5 @@
 package com.myudog.tuozhurpg.client.gui.widgets.components;
 
-import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
@@ -61,8 +60,8 @@ public class ButtonWidget extends ControlWidget {
         context.drawCenteredTextWithShadow(
                 MinecraftClient.getInstance().textRenderer,
                 this.getMessage(),
-                this.getX() + this.width / 2,
-                this.getY() + (this.height - 8) / 2, // 8 是字體高度的一半
+                this.getX() + this.w / 2,
+                this.getY() + (this.h - 8) / 2, // 8 是字體高度的一半
                 textColor
         );
     }

@@ -1,5 +1,6 @@
 package com.myudog.tuozhurpg.client.gui.widgets.panels;
 
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import net.minecraft.client.gui.DrawContext;
 
 public class PaperDollPanel extends PanelWidget {

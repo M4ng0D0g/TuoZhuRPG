@@ -1,7 +1,6 @@
 package com.myudog.tuozhurpg.client.gui.widgets.components;
 
 
-import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
@@ -51,7 +50,7 @@ public class SliderWidget extends ControlWidget {
 
     private void setValueFromMouse(double mouseX) {
         double relativeX = mouseX - getX();
-        this.value = MathHelper.clamp(relativeX / (double) this.width, 0.0, 1.0);
+        this.value = MathHelper.clamp(relativeX / (double) this.w, 0.0, 1.0);
         this.updateMessage();
 
         if (this.onValueChange != null) {
@@ -66,15 +65,15 @@ public class SliderWidget extends ControlWidget {
         this.drawBorder(context);
 
         int handleWidth = 8;
-        int handleX = getX() + (int) (this.value * (this.width - handleWidth));
+        int handleX = getX() + (int) (this.value * (this.w - handleWidth));
         int handleColor = isHovered() ? 0xFFFFFFFF : 0xFFAAAAAA;
-        context.fill(handleX, getY() + 1, handleX + handleWidth, getY() + height - 1, handleColor);
+        context.fill(handleX, getY() + 1, handleX + handleWidth, getY() + h - 1, handleColor);
 
         context.drawCenteredTextWithShadow(
                 MinecraftClient.getInstance().textRenderer,
                 this.getMessage(),
-                getX() + width / 2,
-                getY() + (height - 8) / 2,
+                getX() + w / 2,
+                getY() + (h - 8) / 2,
                 0xFFE0E0E0
         );
     }

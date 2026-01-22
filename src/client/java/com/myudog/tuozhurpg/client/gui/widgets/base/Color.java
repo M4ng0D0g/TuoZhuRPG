@@ -1,5 +1,6 @@
 package com.myudog.tuozhurpg.client.gui.widgets.base;
 
+import com.myudog.tuozhurpg.client.gui.interfaces.IColor;
 import net.minecraft.util.math.MathHelper;
 
 public class Color implements IColor {

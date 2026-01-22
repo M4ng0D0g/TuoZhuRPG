@@ -1,5 +1,7 @@
 package com.myudog.tuozhurpg.client.gui.widgets.panels;
 
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
+
 public class NineSlicePanel extends PanelWidget {
 
 

@@ -1,7 +1,5 @@
 package com.myudog.tuozhurpg.client.gui.widgets.components;
 
-import com.myudog.tuozhurpg.client.gui.widgets.base.BaseWidget;
-
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.text.Text;
@@ -27,19 +25,19 @@ public class StatBarWidget extends ControlWidget {
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         // 1. 畫黑底槽
-        context.fill(getX(), getY(), getX() + width, getY() + height, 0xFF000000);
+        context.fill(getX(), getY(), getX() + w, getY() + h, 0xFF000000);
 
         // 2. 畫有顏色的進度
-        int barWidth = (int)(this.width * progress);
+        int barWidth = (int)(this.w * progress);
         if (barWidth > 0) {
-            context.fill(getX() + 1, getY() + 1, getX() + barWidth - 1, getY() + height - 1, barColor);
+            context.fill(getX() + 1, getY() + 1, getX() + barWidth - 1, getY() + h - 1, barColor);
         }
 
         // 3. (可選) 畫邊框，呼叫父類方法，或者只畫簡單的線
-        context.fill(getX(), getY(), getX() + width, getY() + thickness, borderColor);
-        context.fill(getX(), getY() + height - thickness, getX() + width, getY() + height, borderColor);
-        context.fill(getX(), getY(), getX() + thickness, getY() + height, borderColor);
-        context.fill(getX() + width - thickness, getY(), getX() + width, getY() + height, borderColor);
+        context.fill(getX(), getY(), getX() + w, getY() + thickness, borderColor);
+        context.fill(getX(), getY() + h - thickness, getX() + w, getY() + h, borderColor);
+        context.fill(getX(), getY(), getX() + thickness, getY() + h, borderColor);
+        context.fill(getX() + w - thickness, getY(), getX() + w, getY() + h, borderColor);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.myudog.tuozhurpg.client.gui.widgets.panels;
 
+import com.myudog.tuozhurpg.client.gui.widgets.panels.base.PanelWidget;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.MathHelper;
 
@@ -21,7 +22,7 @@ public class ScrollContainerWidget extends PanelWidget {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         // 如果內容比面板短，不需要滾動
-        if (contentHeight <= this.height) return false;
+        if (contentHeight <= this.h) return false;
 
         // verticalAmount 通常是 1.0 (往上) 或 -1.0 (往下)
         // 設定滾動速度，例如一次 20 像素
@@ -33,7 +34,7 @@ public class ScrollContainerWidget extends PanelWidget {
         // 限制範圍 (Clamp)
         // 最小是 0 (最頂端)
         // 最大是 (內容高度 - 面板高度) (最底端)
-        double maxScroll = Math.max(0, contentHeight - this.height);
+        double maxScroll = Math.max(0, contentHeight - this.h);
         this.scrollAmount = MathHelper.clamp(this.scrollAmount, 0, maxScroll);
 
         return true;
@@ -48,7 +49,7 @@ public class ScrollContainerWidget extends PanelWidget {
         // B. 開啟剪裁 (Scissor)
         // 這會告訴顯卡：只准畫在我的 Panel 範圍內，超出的部分切掉！
         // enableScissor 需要絕對座標和寬高
-        context.enableScissor(getX(), getY(), getX() + width, getY() + height);
+        context.enableScissor(getX(), getY(), getX() + w, getY() + h);
 
         // C. 位移矩陣 (Translate)
         // 為了模擬「往下捲」，我們其實是把內容物「往上推」 (Y 減去 scrollAmount)
@@ -83,15 +84,15 @@ public class ScrollContainerWidget extends PanelWidget {
     }
 
     private void renderScrollbar(DrawContext context) {
-        if (contentHeight <= this.height) return;
+        if (contentHeight <= this.h) return;
 
         int barWidth = 4;
-        int barHeight = (int) ((float) this.height / contentHeight * this.height); // 比例尺
-        int barX = this.getX() + this.width - barWidth - 2;
-        int barY = this.getY() + (int) ((float) scrollAmount / (contentHeight - this.height) * (this.height - barHeight));
+        int barHeight = (int) ((float) this.h / contentHeight * this.h); // 比例尺
+        int barX = this.getX() + this.w - barWidth - 2;
+        int barY = this.getY() + (int) ((float) scrollAmount / (contentHeight - this.h) * (this.h - barHeight));
 
         // 畫軌道
-        context.fill(barX, getY(), barX + barWidth, getY() + height, 0x20000000);
+        context.fill(barX, getY(), barX + barWidth, getY() + h, 0x20000000);
         // 畫拉桿
         context.fill(barX, barY, barX + barWidth, barY + barHeight, 0x80FFFFFF);
     }
