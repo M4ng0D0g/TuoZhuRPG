@@ -1,7 +1,13 @@
 package com.myudog.tuozhurpg.item;
 
 import com.myudog.tuozhurpg.TuoZhuRpg;
+import com.myudog.tuozhurpg.api.attribute.custom.RpgInnate;
 import com.myudog.tuozhurpg.block.ModBlocks;
+import com.myudog.tuozhurpg.component.item.ModItemComponents;
+import com.myudog.tuozhurpg.component.item.container.AttributeContainer;
+import com.myudog.tuozhurpg.component.item.container.SocketContainer;
+import com.myudog.tuozhurpg.item.base.BaseRpgTool;
+import com.myudog.tuozhurpg.item.base.BaseRpgWeapon;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -16,7 +22,13 @@ public class ModItems {
 
 	// --- 測試物品 ---
 	public static final Item TEST_ITEM = register("test_item", Item::new, new Item.Settings());
-	public static final Item TEST_TOOL = register("test_tool", Item::new, new Item.Settings().sword(ModToolMaterials.TEST_TOOL, 1f, 1f));
+	public static final Item TEST_TOOL = register(
+            "test_tool",
+            BaseRpgWeapon::new,
+            new Item.Settings()
+                    .sword(ModToolMaterials.TEST_TOOL, 1f, 1f)
+                    .component(ModItemComponents.SOCKETS, SocketContainer.empty(3))
+    );
 
     public static final Item DROP_1 = register("drop_1", Item::new, new Item.Settings().maxCount(16));
     public static final Item DROP_2 = register("drop_2", Item::new, new Item.Settings().maxCount(16));

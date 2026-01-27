@@ -1,4 +1,4 @@
-package com.myudog.tuozhurpg.component.item;
+package com.myudog.tuozhurpg.component.item.container;
 
 import com.mojang.serialization.Codec;
 import com.myudog.tuozhurpg.api.attribute.IRpgAttribute;

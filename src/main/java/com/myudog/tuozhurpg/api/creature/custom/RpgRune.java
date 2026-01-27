@@ -25,11 +25,6 @@ public enum RpgRune implements IRune {
     }
 
     @Override
-    public String getTranslationKey() {
-        return "rune." + TuoZhuRpg.MOD_ID + "." + this.id;
-    }
-
-    @Override
     public RpgInnate getTargetInnate() {
         return this.targetInnate;
     }

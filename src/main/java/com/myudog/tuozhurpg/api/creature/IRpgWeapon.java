@@ -1,5 +1,6 @@
 package com.myudog.tuozhurpg.api.creature;
 
-public interface IRpgWeapon {
+public interface IRpgWeapon extends IRpgEquipment {
 
+    int getWeight();
 }

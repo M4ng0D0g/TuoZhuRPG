@@ -2,6 +2,8 @@ package com.myudog.tuozhurpg.component.item;
 
 import com.myudog.tuozhurpg.TuoZhuRpg;
 import com.myudog.tuozhurpg.api.attribute.custom.RpgInnate;
+import com.myudog.tuozhurpg.component.item.container.AttributeContainer;
+import com.myudog.tuozhurpg.component.item.container.SocketContainer;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

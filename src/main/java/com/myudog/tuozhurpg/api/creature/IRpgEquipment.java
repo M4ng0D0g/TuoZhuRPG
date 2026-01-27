@@ -8,5 +8,5 @@ public interface IRpgEquipment extends IRpgItem {
     boolean canEquip(ItemStack stack, LivingEntity entity);
     // boolean canEquip(SlotType slot);
 
-    int getWeight();
+
 }

@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.component.DataComponentTypes;
 
-public abstract class BaseRpgItem extends Item implements IRpgItem {
+public class BaseRpgItem extends Item implements IRpgItem {
 
     public BaseRpgItem(Settings settings) {
         super(settings);

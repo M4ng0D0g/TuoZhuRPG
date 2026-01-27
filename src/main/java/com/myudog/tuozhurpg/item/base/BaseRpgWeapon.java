@@ -5,7 +5,7 @@ import com.myudog.tuozhurpg.api.creature.IRpgWeapon;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
-public class BaseRpgWeapon extends BaseRpgEquipment implements IRpgWeapon {
+public class BaseRpgWeapon extends BaseRpgItem implements IRpgWeapon {
 
     public BaseRpgWeapon(Settings settings) {
         super(settings);
@@ -23,5 +23,10 @@ public class BaseRpgWeapon extends BaseRpgEquipment implements IRpgWeapon {
     @Override
     public int getWeight() {
         return 0;
+    }
+
+    @Override
+    public boolean canEquip(ItemStack stack, LivingEntity entity) {
+        return false;
     }
 }

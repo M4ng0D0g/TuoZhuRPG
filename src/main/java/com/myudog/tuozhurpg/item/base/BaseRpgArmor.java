@@ -2,23 +2,22 @@ package com.myudog.tuozhurpg.item.base;
 
 import com.myudog.tuozhurpg.api.attribute.IRpgAttribute;
 import com.myudog.tuozhurpg.api.attribute.custom.RpgInnate;
-import com.myudog.tuozhurpg.api.creature.IPrefix;
 import com.myudog.tuozhurpg.api.creature.IRpgArmor;
-import com.myudog.tuozhurpg.api.creature.IRune;
+import com.myudog.tuozhurpg.api.creature.IRpgEquipment;
 import com.myudog.tuozhurpg.api.creature.custom.RpgPrefix;
 import com.myudog.tuozhurpg.api.creature.custom.RpgRune;
-import com.myudog.tuozhurpg.component.item.AttributeContainer;
+import com.myudog.tuozhurpg.component.item.container.AttributeContainer;
 import com.myudog.tuozhurpg.component.item.ModItemComponents;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 import java.util.*;
 
-public abstract class BaseRpgArmor extends BaseRpgEquipment implements IRpgArmor {
+public class BaseRpgArmor extends BaseRpgItem implements IRpgArmor, IRpgEquipment {
 
     public BaseRpgArmor(Settings settings) {
         super(settings);
@@ -184,5 +183,10 @@ public abstract class BaseRpgArmor extends BaseRpgEquipment implements IRpgArmor
      */
     public void setPrefix(ItemStack stack, RpgPrefix prefix) {
 //        stack.set(ModItemComponents.PREFIX, prefix);
+    }
+
+    @Override
+    public boolean canEquip(ItemStack stack, LivingEntity entity) {
+        return false;
     }
 }
