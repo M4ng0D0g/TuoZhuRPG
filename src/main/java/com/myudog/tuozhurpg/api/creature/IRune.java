@@ -3,6 +3,7 @@ package com.myudog.tuozhurpg.api.creature;
 import com.myudog.tuozhurpg.api.attribute.custom.RpgInnate;
 import net.minecraft.util.StringIdentifiable;
 
+// 鑲嵌符文，用來強化天賦係數
 public interface IRune extends StringIdentifiable {
 
     String getTranslationKey();

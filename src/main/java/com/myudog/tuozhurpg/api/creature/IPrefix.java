@@ -6,6 +6,7 @@ import net.minecraft.util.StringIdentifiable;
 
 import java.util.Map;
 
+// 前綴，主流天賦組合
 public interface IPrefix extends StringIdentifiable {
 
     default String getTranslationKey() {

@@ -14,4 +14,9 @@ public class BaseRpgEquipment extends BaseRpgItem implements IRpgEquipment {
     public boolean canEquip(ItemStack stack, LivingEntity entity) {
         return false;
     }
+
+    @Override
+    public int getWeight() {
+        return 0;
+    }
 }
